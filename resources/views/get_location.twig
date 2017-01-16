@@ -1,0 +1,32 @@
+{% extends 'templates/main.twig' %}
+
+{% block title %}Geolocate Test - Get Location{% endblock %}
+
+{% block major %} 
+<h4>Get Location</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>IP Address</th>
+            <th>City</th>
+            <th>Subdivision</th>
+            <th>Country</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{{ ip }}</td>
+            <td>{{ city }}</td>
+            <td>{{ subdivision }}</td>
+            <td>{{ country }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+<a class="btn btn-primary pull-right" href="{{ route('index', { 'ip': ip }) }}">Start Again</a>
+</p>
+
+{% endblock %}

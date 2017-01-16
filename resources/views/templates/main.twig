@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>{% block title %}GeoLocate Test{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/app.bundle.css" rel="stylesheet">
+  </head>
+
+  <body>
+    {%block navigation %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">[ GeoLocate Test ]</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <!--
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+          -->
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+    {% endblock %}
+
+    {% block jumbotron %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <div style="text-align: center;">
+            <h2>Where Are You?</h2>
+
+            <h4>...in the world ...</h4>
+            </div> 
+        </div>
+    </div>
+    {% endblock %}
+
+    <div class="container">
+
+      <div class="row">
+        {% block minor %}
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="{{ route('index', { 'ip': ip ?? '127.0.0.1' }) }}" class="list-group-item{{ active_page == 'index' ? ' active' : ''}}">Index</a>
+                <a href="{{ route('bulk') }}" class="list-group-item{{ active_page == 'bulk' ? ' active' : ''}}">Bulk</a>
+            </div>
+        {% endblock %}
+        </div>
+
+        <div class="col-md-10">
+        {% block errors %}
+            {% if app_errors is defined %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {% if app_errors is iterable %}
+                        <ul>
+                            {% for index, app_error in app_errors | sort if index < 10 %}
+                                <li>{{ app_error }}</li>
+                            {% endfor %}
+
+                            {% if app_errors | length > 10 %}
+                                <li>There are {{ (app_errors | length) - 10 }} more errors...</li>
+                            {% endif %}
+                        </ul>
+                     {% else %}
+                        {{ app_errors }}
+                     {% endif %}
+                </div>
+            {% endif %}
+        {% endblock %}
+
+        {% block warnings %}
+            {% if app_warnings is defined %}
+                <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {% if app_warnings is iterable %}
+                        <ul>
+                            {% for index, app_warning in app_warnings | sort if index < 10 %}
+                                <li>{{ app_warning }}</li>
+                            {% endfor %}
+
+                            {% if app_warnings | length > 10 %}
+                                <li>There are {{ (app_warnings | length) - 10 }} more warnings...</li>
+                            {% endif %}
+                        </ul>
+                    {% else %}
+                        {{ app_warnings }}
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endblock %}
+
+        {% block major %}
+        <h4>GeoLocation Test</h4>
+        {% endblock %}
+        </div>
+      </div>
+
+      <hr>
+
+      {% block footer %}
+      <footer>
+            <small>
+            <p>
+                Copyright &#169; 2016 <a href="mailto:lloy0076 [at] adam.com.au">[ David Lloyd ]</a>.
+            </p>
+            
+            <p>
+            This web-site uses GeoLite2 data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>.
+            </small>
+            </p>
+      </footer>
+      {% endblock %}
+    </div> <!-- /container -->
+
+    <script src="js/app.bundle.js"></script>
+</body>
+</html>

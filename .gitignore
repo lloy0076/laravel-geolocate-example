@@ -1,0 +1,9 @@
+/node_modules
+/public/storage
+/vendor
+/.idea
+/resources/geoip2
+/dist
+Homestead.json
+Homestead.yaml
+.env

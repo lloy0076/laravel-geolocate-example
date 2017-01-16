@@ -1,0 +1,34 @@
+{% extends 'templates/main.twig' %}
+
+{% block title %}Geolocate Test - Get Bulk Location{% endblock %}
+
+{% block major %} 
+<h4>Get Bulk Location</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>IP Address</th>
+            <th>City</th>
+            <th>Subdivision</th>
+            <th>Country</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for record in data %}
+        <tr>
+            <td>{{ record.ip }}</td>
+            <td>{{ record.city }}</td>
+            <td>{{ record.subdivision }}</td>
+            <td>{{ record.country }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p>
+<a class="btn btn-primary pull-right" href="{{ route('bulk') }}">Start Again</a>
+</p>
+
+{% endblock %}

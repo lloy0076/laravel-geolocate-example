@@ -1,0 +1,25 @@
+{% extends 'templates/main.twig' %}
+
+{% block title %}Geolocate Test - Input Location{% endblock %}
+
+{% block major %} 
+<h4>Enter An IP</h4>
+
+<form class="form-horizontal" method="post">
+    {{ csrf_field() }}
+    <div class="form-group">
+        <label for="ip" class="col-md-2 control-label">IP Address</label>
+        <div class="col-md-3">
+            {% set the_ip = ip ?? '127.0.0.1' %}
+            <input type="text" class="form-control" id="ip" name="ip" maxlength="15" size="15" value="{{ the_ip }}" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-5">
+            <button type="submit" class="btn btn-primary pull-right">Check</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
