@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\GeoBaseController;
 
+/**
+ * The IndexController provides methods to handle the application routes.
+ */
 class IndexController extends GeoBaseController
 {
     const INDEX_VIEW        = 'index';
@@ -16,12 +19,28 @@ class IndexController extends GeoBaseController
     const BULK_VIEW              = 'bulk';
     const GET_BULK_LOCATION_VIEW = 'get_bulk_location'; 
 
+    /**
+     * Displays the index page.
+     * 
+     * The index page is displayed with the 'ip' input text set to *127.0.0.1*.
+     *
+     * @param Request $req
+     * @return The index view.
+     */
     public function index(Request $req) {
         $ip = $req->input('ip', '127.0.0.1');
 
-        return view(self::INDEX_VIEW, [ 'ip' => $ip, 'active_page' => 'index', ]);
+        return view(
+            self::INDEX_VIEW,
+            [ 'ip' => $ip, 'active_page' => 'index', ]);
     }
 
+    /**
+     * Gets the location from the request.
+     *
+     * @param Request $req
+     * @return void
+     */
     public function getLocation(Request $req) {
         $args                = $this->getLocationArgs($req);
         $args['active_page'] = 'index';

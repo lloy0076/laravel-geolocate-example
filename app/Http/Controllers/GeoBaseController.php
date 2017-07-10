@@ -11,6 +11,10 @@ use App\Services\Geoip2Service;
 use GeoIp2\Database\Reader;
 use GeoIp2\Exception\AddressNotFoundException;
 
+/**
+ * The GeoBaseController provides common methods for the web and API based
+ * endpoints.
+ */
 class GeoBaseController extends Controller
 {
     const INDEX_VIEW        = 'index';
@@ -21,7 +25,23 @@ class GeoBaseController extends Controller
 
     const FILE_LOCATION     = 'ips';
 
-    public function getLocationArgs(Request $req) {
+    /**
+     * Gets the location given the request.
+     *
+     * @param $req The request.
+     * @return A hash containing the following:
+     *     - @b ip
+     *       The IP address searched for.
+     *     - @b city
+     *       The city, if found.
+     *     - @b country
+     *       The country, if found.
+     *     - @b app_warnings
+     *       Any warnings, if present.
+     *     .
+     */    
+    public function getLocationArgs(Request $req)
+    {
         $geo = resolve(Geoip2Service::class);
 
         $ip = $req->input('ip', '');
@@ -69,13 +89,23 @@ class GeoBaseController extends Controller
     }
 
     /**
-     * Process the bulk file.
+     * Gets the location of a number of IP addresses.
+     *
+     * @param Request $req The request.
+     * @return A hash containing:
+     *     - @b app_warnings
+     *       Any warnings (e.g. unfound IPs are considered a warning).
+     *     - @b app_errors
+     *       Any errors (e.g. invalid IPs are considered an error; as is
+     *       uploading an invalid file type).
+     *     - @b data
+     *       The IP data (@see the `processsFile($file)` method.
+     *     .
      */
     public function getBulkLocationArgs(Request $req) {
         $geo = resolve(Geoip2Service::class);
 
         $file = $req->file();
-        dd($req);
 
         if (! isset($file)) {
             $args = [
