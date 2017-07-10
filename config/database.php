@@ -52,7 +52,7 @@ return [
             'prefix' => '',
         ],
 
-        'geo1' => [
+        'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '3306'),
