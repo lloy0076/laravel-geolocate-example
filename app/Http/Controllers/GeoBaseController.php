@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -21,7 +21,7 @@ class GeoBaseController extends Controller
     const GET_LOCATION_VIEW = 'get_location';
 
     const BULK_VIEW              = 'bulk';
-    const GET_BULK_LOCATION_VIEW = 'get_bulk_location'; 
+    const GET_BULK_LOCATION_VIEW = 'get_bulk_location';
 
     const FILE_LOCATION     = 'ips';
 
@@ -39,7 +39,7 @@ class GeoBaseController extends Controller
      *     - @b app_warnings
      *       Any warnings, if present.
      *     .
-     */    
+     */
     public function getLocationArgs(Request $req)
     {
         $geo = resolve(Geoip2Service::class);
@@ -131,7 +131,7 @@ class GeoBaseController extends Controller
                 'data' => $data,
             ];
 
-            $new_data     = []; 
+            $new_data     = [];
             $app_errors   = [];
             $app_warnings = [];
             foreach ($data as $data_item) {
@@ -192,7 +192,7 @@ class GeoBaseController extends Controller
             try {
                 if (filter_var($string, FILTER_VALIDATE_IP) !== false) {
                     $record = $geo->findLocation($string);
-                    
+
                     $data[] = [
                         'ip'      => $string,
                         'city'    => $record->city->name,
@@ -226,10 +226,10 @@ class GeoBaseController extends Controller
      */
     private function generateSubdivision($subdivisions = []) {
         $text = '';
-        if (count($subdivisions > 0)) {
+        if (count($subdivisions) > 0) {
             $divisions = [];
             foreach ($subdivisions as $subdivision) {
-               $divisions[] = $subdivision->name; 
+               $divisions[] = $subdivision->name;
             }
 
             $text = implode(', ', $divisions);
